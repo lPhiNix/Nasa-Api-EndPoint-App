@@ -1,6 +1,7 @@
 package org.phinix.nasaApiEndpointApp.dto.external;
 
-public record NasaApiResponse(
+import java.util.Map;
 
-) {
-}
+public record NasaApiResponse(
+        Map<String, Object> near_earth_objects
+) {}
