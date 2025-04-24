@@ -18,13 +18,13 @@ public class AsteroidsController {
         this.service = service;
     }
 
-    @GetMapping("/all")
-    public Object getAsteroids(@RequestParam int days) {
+    @GetMapping
+    public Object getAllAsteroids(@RequestParam int days) {
         return service.getRawAsteroids(days);
     }
 
     @GetMapping("/simplify")
     public List<AsteroidResponseDTO> getSimplifyAsteroids(@RequestParam int days) {
-        return service.getSimplifyAsteroids(days);
+        return service.getMappedAsteroids(days);
     }
 }
