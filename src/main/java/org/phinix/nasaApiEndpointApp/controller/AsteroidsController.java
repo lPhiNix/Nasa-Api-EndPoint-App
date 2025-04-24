@@ -29,7 +29,7 @@ public class AsteroidsController {
     }
 
     @GetMapping("/top-dangerous")
-    public List<AsteroidResponseDTO> getTopDangerousAsteroids(@RequestParam Integer days) {
+    public List<AsteroidResponseDTO> getTopDangerousAsteroids(@RequestParam int days) {
         return service.getTopDangerousAsteroids(days);
     }
 }
