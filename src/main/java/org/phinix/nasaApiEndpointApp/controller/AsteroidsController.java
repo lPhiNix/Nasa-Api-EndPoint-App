@@ -3,12 +3,14 @@ package org.phinix.nasaApiEndpointApp.controller;
 import org.phinix.nasaApiEndpointApp.dto.response.AsteroidResponseDTO;
 import org.phinix.nasaApiEndpointApp.service.AsteroidsService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/api")
+@RestController
+@RequestMapping("api/v1/asteroids")
 public class AsteroidsController {
     private final AsteroidsService service;
 
@@ -16,11 +18,12 @@ public class AsteroidsController {
         this.service = service;
     }
 
-    @GetMapping("/asteroids")
+    @GetMapping("/all")
     public Object getAsteroids(@RequestParam int days) {
         return service.getRawAsteroids(days);
     }
 
+    @GetMapping("/simplify")
     public List<AsteroidResponseDTO> getSimplifyAsteroids(@RequestParam int days) {
         return service.getSimplifyAsteroids(days);
     }
