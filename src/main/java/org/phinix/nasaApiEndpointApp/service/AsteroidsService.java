@@ -48,6 +48,50 @@ public class AsteroidsService {
         return results;
     }
 
+    public List<AsteroidResponseDTO> getTopDangerousAsteroids(int days) {
+        if (days < 1 || days > 7) {
+            throw new IllegalArgumentException("El parámetro 'days' debe estar entre 1 y 7.");
+        }
+
+        String response = getAsteroidsFeedWithDays(days, String.class);
+        List<AsteroidResponseDTO> results = new ArrayList<>();
+
+        try {
+            JsonNode neoMap = extractNearEarthObjects(parseResponseToJson(response));
+            Iterator<String> dateFields = getDateFields(neoMap);
+
+            while (dateFields.hasNext()) {
+                String date = dateFields.next();
+                JsonNode asteroidArray = neoMap.get(date);
+
+                for (JsonNode asteroid : asteroidArray) {
+                    if (asteroid.get("is_potentially_hazardous_asteroid").asBoolean()) {
+                        JsonNode approach = asteroid.get("close_approach_data").get(0);
+                        double diameterMin = asteroid.get("estimated_diameter").get("kilometers").get("estimated_diameter_min").asDouble();
+                        double diameterMax = asteroid.get("estimated_diameter").get("kilometers").get("estimated_diameter_max").asDouble();
+                        double avgDiameter = (diameterMin + diameterMax) / 2.0;
+                        double speed = approach.get("relative_velocity").get("kilometers_per_hour").asDouble();
+                        String planet = approach.get("orbiting_body").asText();
+                        String name = asteroid.get("name").asText();
+                        String approachDate = approach.get("close_approach_date").asText();
+
+                        results.add(new AsteroidResponseDTO(name, avgDiameter, speed, approachDate, planet));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Ordenar por diámetro descendente y devolver top 3
+        return results.stream()
+                .sorted((a1, a2) -> Double.compare(a2.diameter(), a1.diameter()))
+                .limit(3)
+                .toList();
+    }
+
+
     private JsonNode parseResponseToJson(String response) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(response);

@@ -27,4 +27,9 @@ public class AsteroidsController {
     public List<AsteroidResponseDTO> getSimplifyAsteroids(@RequestParam int days) {
         return service.getMappedAsteroids(days);
     }
+
+    @GetMapping("/top-dangerous")
+    public List<AsteroidResponseDTO> getTopDangerousAsteroids(@RequestParam Integer days) {
+        return service.getTopDangerousAsteroids(days);
+    }
 }
