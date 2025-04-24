@@ -21,7 +21,7 @@ public class NasaClient {
     }
 
     public <T> T getAsteroidsFeed(String startDate, String endDate, Class<T> responseType) {
-        String url = String.format("%s?=%s&=%s&=%s",
+        String url = String.format("%s?start_date=%s&end_date=%s&api_key=%s",
                 apiUrl, startDate, endDate, apiKey);
         return restTemplate.getForObject(url, responseType);
     }
