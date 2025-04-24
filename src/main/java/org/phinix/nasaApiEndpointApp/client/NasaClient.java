@@ -21,9 +21,9 @@ public class NasaClient {
         this.apiKey = apiKey;
     }
 
-    public NasaApiResponse getAsteroidsFeed(String startDate, String endDate) {
+    public <T> T getAsteroidsFeed(String startDate, String endDate, Class<T> responseType) {
         String url = String.format("%s?start_date=%s&end_date=%s&api_key=%s",
                 apiUrl, startDate, endDate, apiKey);
-        return restTemplate.getForObject(url, NasaApiResponse.class);
+        return restTemplate.getForObject(url, responseType);
     }
 }

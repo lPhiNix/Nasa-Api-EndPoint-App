@@ -22,7 +22,8 @@ public class AsteroidsService {
 
         return client.getAsteroidsFeed(
                 startDate.format(dateFormatter),
-                endDate.format(dateFormatter)
+                endDate.format(dateFormatter),
+                NasaApiResponse.class
         );
     }
 }
