@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.phinix.nasaApiEndpointApp.client.NasaClient;
 import org.phinix.nasaApiEndpointApp.dto.external.NasaApiResponse;
 import org.phinix.nasaApiEndpointApp.dto.response.AsteroidResponseDTO;
+import org.phinix.nasaApiEndpointApp.exception.NasaApiException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -60,7 +61,7 @@ public class AsteroidsService {
             JsonNode root = objectMapper.readTree(response);
             return root.get("near_earth_objects");
         } catch (Exception e) {
-            throw new RuntimeException("Error al parsear la respuesta de la API de la NASA.", e);
+            throw new NasaApiException("Error al parsear la respuesta de la API de la NASA.", e);
         }
     }
 
@@ -104,7 +105,7 @@ public class AsteroidsService {
 
     private void validateDays(int days) {
         if (days < 1 || days > 7) {
-            throw new IllegalArgumentException("El parámetro 'days' debe estar entre 1 y 7.");
+            throw new NasaApiException("El parámetro 'days' debe estar entre 1 y 7.");
         }
     }
 }
