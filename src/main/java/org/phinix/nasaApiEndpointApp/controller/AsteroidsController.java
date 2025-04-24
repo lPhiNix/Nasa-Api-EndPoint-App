@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController("/api")
 public class AsteroidsController {
     private final AsteroidsService service;
@@ -19,7 +21,7 @@ public class AsteroidsController {
         return service.getRawAsteroids(days);
     }
 
-    public AsteroidResponseDTO getSimplifyAsteroids(@RequestParam int days) {
-
+    public List<AsteroidResponseDTO> getSimplifyAsteroids(@RequestParam int days) {
+        return service.getSimplifyAsteroids(days);
     }
 }
