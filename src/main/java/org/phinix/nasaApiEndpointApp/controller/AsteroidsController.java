@@ -1,5 +1,6 @@
 package org.phinix.nasaApiEndpointApp.controller;
 
+import org.phinix.nasaApiEndpointApp.dto.response.AsteroidResponseDTO;
 import org.phinix.nasaApiEndpointApp.service.AsteroidsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,5 +17,9 @@ public class AsteroidsController {
     @GetMapping("/asteroids")
     public Object getAsteroids(@RequestParam int days) {
         return service.getRawAsteroids(days);
+    }
+
+    public AsteroidResponseDTO getSimplifyAsteroids(@RequestParam int days) {
+
     }
 }

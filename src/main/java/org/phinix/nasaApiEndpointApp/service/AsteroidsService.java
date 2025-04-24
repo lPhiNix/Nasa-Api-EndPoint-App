@@ -2,10 +2,12 @@ package org.phinix.nasaApiEndpointApp.service;
 
 import org.phinix.nasaApiEndpointApp.client.NasaClient;
 import org.phinix.nasaApiEndpointApp.dto.external.NasaApiResponse;
+import org.phinix.nasaApiEndpointApp.dto.response.AsteroidResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class AsteroidsService {
@@ -25,5 +27,9 @@ public class AsteroidsService {
                 endDate.format(dateFormatter),
                 NasaApiResponse.class
         );
+    }
+
+    public List<AsteroidResponseDTO> getSimplifyAsteroids(int days) {
+        return null;
     }
 }
