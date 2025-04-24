@@ -1,6 +1,6 @@
 package org.phinix.nasaApiEndpointApp.dto.response;
 
-public record NasaAsteroidsResponseDTO(
+public record AsteroidResponseDTO(
     String name,
     double diameter,
     double speed,
